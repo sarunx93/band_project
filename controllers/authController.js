@@ -42,8 +42,21 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token, location: user.location });
 };
 const updateUser = async (req, res) => {
-  console.log(req.user);
-  res.send("updateUser");
+  const { email, name, lastName, location, password } = req.body;
+  if (!email || !name || !lastName || !location) {
+    throw new BadRequestError("Please provide all values");
+  }
+  const user = await User.findOne({ _id: req.user.userId });
+  //User.findOneAndUpdate will bypass the pre-save hook in the schema.
+  user.email = email;
+  user.name = name;
+  user.lastName = lastName;
+  user.location = location;
+  user.password = password;
+  await user.save();
+  const token = user.createJWT();
+
+  res.status(StatusCodes.OK).json({ user, token, location: user.location });
 };
 const logout = async (req, res) => {
   res.send("logout");

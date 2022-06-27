@@ -12,6 +12,7 @@ app.use(express.json());
 //routers
 import authRouter from "./routes/authRoute.js";
 import musiciansRouter from "./routes/musiciansRoute.js";
+import bandRouter from "./routes/bandRoute.js";
 
 if (process.env.NODE_ENV !== "production") {
   app.use(morgan("dev"));
@@ -24,6 +25,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/musicians", authenticateUser, musiciansRouter);
+app.use("/api/v1/bands", bandRouter);
 
 //middleware
 app.use(notFoundMiddleware);
