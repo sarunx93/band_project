@@ -18,6 +18,6 @@ router
 router
   .route("/:id")
   .get(getSingleMusician)
-  .patch(authenticateUser, updateMusician)
-  .delete(deleteMusician);
+  .patch(authenticateUser, authorizeRoles("admin"), updateMusician)
+  .delete(authenticateUser, authorizeRoles("admin"), deleteMusician);
 export default router;

@@ -20,7 +20,7 @@ const MemInBandSchema = mongoose.Schema({
   image: {
     type: String,
   },
-  musicanId: {
+  musicianId: {
     type: mongoose.Schema.ObjectId,
     ref: "Musician",
     required: true,

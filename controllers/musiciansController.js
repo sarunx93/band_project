@@ -14,16 +14,37 @@ const createMusician = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ musician });
 };
 const deleteMusician = async (req, res) => {
-  res.send("delete musician");
+  const { id: musicianId } = req.params;
+  const musician = await Musician.findOne({ _id: musicianId });
+  if (!musician) {
+    throw new NotFoundError(`No musician with id :${musicianId}`);
+  }
+  await musician.remove();
+  res.status(StatusCodes.OK).json({ msg: "musician removed" });
 };
 const getAllMusicians = async (req, res) => {
-  res.send("getAll musician");
+  const musicians = await Musician.find({});
+  res.status(StatusCodes.OK).json({ musicians });
 };
 const updateMusician = async (req, res) => {
-  res.send("update musician");
+  const { id: musicianId } = req.params;
+  const musician = await Musician.findByIdAndUpdate(
+    { _id: musicianId },
+    req.body,
+    { new: true, runValidators: true }
+  );
+  if (!musician) {
+    throw new NotFoundError(`No musician with id :${musicianId}`);
+  }
+  res.status(StatusCodes.OK).json({ musician });
 };
 const getSingleMusician = async (req, res) => {
-  res.send("get single musician");
+  const { id: musicianId } = req.params;
+  const musician = await Musician.findOne({ _id: musicianId });
+  if (!musician) {
+    throw new NotFoundError(`No musician with id :${musicianId}`);
+  }
+  res.status(StatusCodes.OK).json({ musician });
 };
 export {
   createMusician,
