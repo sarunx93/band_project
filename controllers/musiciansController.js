@@ -22,10 +22,25 @@ const deleteMusician = async (req, res) => {
   await musician.remove();
   res.status(StatusCodes.OK).json({ msg: "musician removed" });
 };
+
 const getAllMusicians = async (req, res) => {
-  const musicians = await Musician.find({});
-  res.status(StatusCodes.OK).json({ musicians });
+  const { position, sort, search, location } = req.query;
+  console.log(position);
+  const queryObject = {};
+  // add stuff based on condition
+  if (position !== "all") {
+    queryObject.position = position;
+  }
+  if (location !== "all") {
+    queryObject.location = location;
+  }
+
+  let results = Musician.find(queryObject);
+  const musicians = await results;
+
+  res.status(StatusCodes.OK).json({ count: musicians.length, musicians });
 };
+
 const updateMusician = async (req, res) => {
   const { id: musicianId } = req.params;
   const musician = await Musician.findByIdAndUpdate(
