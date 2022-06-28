@@ -11,7 +11,12 @@ const register = async (req, res) => {
   if (userAlreadyExist) {
     throw new BadRequestError("Email already exists");
   }
-  const user = await User.create({ name, email, password });
+
+  //first registered user as an admin
+  const isFirstAccount = (await User.countDocuments({})) === 0;
+  const role = isFirstAccount ? "admin" : "user";
+
+  const user = await User.create({ name, email, password, role });
   const token = user.createJWT();
   res.status(StatusCodes.CREATED).json({
     user: {
@@ -19,6 +24,7 @@ const register = async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       location: user.location,
+      role,
     },
     token,
     location: user.location,

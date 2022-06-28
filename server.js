@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/musicians", authenticateUser, musiciansRouter);
+app.use("/api/v1/musicians", musiciansRouter);
 app.use("/api/v1/bands", bandRouter);
 
 //middleware

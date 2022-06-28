@@ -4,12 +4,20 @@ import {
   deleteMusician,
   getAllMusicians,
   updateMusician,
-  showStats,
+  getSingleMusician,
 } from "../controllers/musiciansController.js";
 import authenticateUser from "../middleware/auth.js";
+import { authorizeRoles } from "../middleware/auth.js";
 const router = express.Router();
 
-router.route("/").post(createMusician).get(getAllMusicians);
-router.route("/stats").get(showStats);
-router.route("/:id").patch(updateMusician).delete(deleteMusician);
+router
+  .route("/")
+  .post(authenticateUser, authorizeRoles("admin"), createMusician)
+  .get(getAllMusicians);
+
+router
+  .route("/:id")
+  .get(getSingleMusician)
+  .patch(authenticateUser, updateMusician)
+  .delete(deleteMusician);
 export default router;
