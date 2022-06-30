@@ -33,29 +33,20 @@ const NavbarComponent = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1">
-                <Nav.Link href="#action1" className="link">
+                <Nav.Link href="/" className="link">
                   Home
                 </Nav.Link>
-                <Nav.Link href="#action2" className="link">
-                  About
+                <Nav.Link href="/all-musicians" className="link">
+                  All Musicians
                 </Nav.Link>
-                <NavDropdown
-                  title="Products"
-                  id="offcanvasNavbarDropdown-expand-sm"
-                  className="link"
-                >
-                  <NavDropdown.Item href="#action3">Guitar</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">Bass</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">Drums</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">Keyboard</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item>
-                    <Link to="all-players">all players</Link>
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link href="/dashboard" className="link">
+                  Dashboard
+                </Nav.Link>
               </Nav>
               <div className="cart-container">
-                <FaShoppingCart className="cart-icon" />
+                <Link to="/register">
+                  <FaShoppingCart className="cart-icon" />
+                </Link>
               </div>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -3,6 +3,9 @@ import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser, registerUser } from "../features/user/userSlice";
+
 const initialState = {
   name: "",
   email: "",
@@ -12,8 +15,8 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
-  //global state and useNavigate
-
+  const { user, isLoading } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };
@@ -25,9 +28,14 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
-    if (!email || !password(!isMember && !name)) {
+    if (!email || !password || (!isMember && !name)) {
       toast.warning("Please fill out all values");
     }
+    if (isMember) {
+      dispatch(loginUser({ email, password }));
+      return;
+    }
+    dispatch(registerUser({ name, email, password }));
   };
   return (
     <Wrapper>
@@ -63,7 +71,9 @@ const Register = () => {
             {values.isMember ? "Register" : "Login"}
           </button>
         </p>
-        <button className="btn btn-block">submit</button>
+        <button className="btn btn-block" disabled={isLoading}>
+          {isLoading ? "loading..." : "submit"}
+        </button>
       </form>
     </Wrapper>
   );

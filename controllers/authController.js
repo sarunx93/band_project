@@ -25,6 +25,7 @@ const register = async (req, res) => {
       email: user.email,
       location: user.location,
       role,
+      token,
     },
     token,
     location: user.location,
@@ -45,7 +46,13 @@ const login = async (req, res) => {
   }
   const token = user.createJWT();
   user.password = undefined;
-  res.status(StatusCodes.OK).json({ user, token, location: user.location });
+
+  res.status(StatusCodes.OK).json({
+    user,
+    token,
+    location: user.location,
+  });
+  console.log(user.token);
 };
 const updateUser = async (req, res) => {
   const { email, name, lastName, location, password } = req.body;
