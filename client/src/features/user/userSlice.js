@@ -43,6 +43,7 @@ const userSlice = createSlice({
     },
     [registerUser.fulfilled]: (state, { payload }) => {
       const { user } = payload;
+      user.token = payload.token;
       state.isLoading = false;
       state.user = user;
       addUserToLocalStorage(user);

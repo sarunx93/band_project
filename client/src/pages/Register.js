@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
@@ -17,6 +18,16 @@ const Register = () => {
   const [values, setValues] = useState(initialState);
   const { user, isLoading } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2500);
+    }
+  }, [user, navigate]);
+
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
   };

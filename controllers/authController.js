@@ -25,7 +25,6 @@ const register = async (req, res) => {
       email: user.email,
       location: user.location,
       role,
-      token,
     },
     token,
     location: user.location,
