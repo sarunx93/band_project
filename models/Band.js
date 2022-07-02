@@ -34,7 +34,7 @@ const BandSchema = new mongoose.Schema({
   },
   members: [MemInBandSchema],
   genre: {
-    type: "String",
+    type: String,
     enum: [
       "Rock",
       "Pop",
@@ -48,7 +48,7 @@ const BandSchema = new mongoose.Schema({
     default: "Pop",
   },
   subGenre: {
-    type: "String",
+    type: String,
   },
   createdBy: {
     type: mongoose.Types.ObjectId,

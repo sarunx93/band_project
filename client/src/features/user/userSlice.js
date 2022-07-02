@@ -4,7 +4,7 @@ import customFetch from "../../utils/axios";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
-  removeUserToLocalStorage,
+  removeUserFromLocalStorage,
 } from "../../utils/localStorage";
 const initialState = {
   isLoading: false,
@@ -37,6 +37,12 @@ export const loginUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "user",
   initialState,
+  reducers: {
+    logoutUser: (state) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+    },
+  },
   extraReducers: {
     [registerUser.pending]: (state) => {
       state.isLoading = true;
@@ -70,5 +76,5 @@ const userSlice = createSlice({
     },
   },
 });
-
+export const { logoutUser } = userSlice.actions;
 export default userSlice.reducer;
