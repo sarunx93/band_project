@@ -28,6 +28,7 @@ function App() {
         >
           <Route path="/dashboard/see-bands" element={<SeeBands />} />
           <Route index="/dashboard/profile" element={<Profile />} />
+          <Route path="/dashboard/profile" element={<Profile />} />
           <Route path="/dashboard/create-band" element={<CreateBand />} />
         </Route>
         <Route path="/register" element={<Register />} />

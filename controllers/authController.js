@@ -64,7 +64,7 @@ const updateUser = async (req, res) => {
   user.name = name;
   user.lastName = lastName;
   user.location = location;
-  user.password = password;
+  // user.password = password;
   await user.save();
   const token = user.createJWT();
 

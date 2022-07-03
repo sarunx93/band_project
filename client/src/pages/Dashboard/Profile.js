@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import FormRow from "../../components/FormRow";
 import { toast } from "react-toastify";
 import { FaUserGraduate } from "react-icons/fa";
+import { updateUser } from "../../features/user/userSlice";
+
 const Profile = () => {
   const { isLoading, user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
@@ -11,7 +13,7 @@ const Profile = () => {
     name: user?.name || "",
     email: user?.email || "",
     lastName: user?.lastName || "",
-    locaition: user?.location || "",
+    location: user?.location || "",
   });
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const Profile = () => {
       toast.error("Please provide all values");
       return;
     }
+    dispatch(updateUser(userData));
   };
   const handleChange = (e) => {
     const name = e.target.name;

@@ -4,7 +4,7 @@ const NavLinks = () => {
   return (
     <div className="nav-links">
       <NavLink
-        to="dashboard/create-band"
+        to="/dashboard/create-band"
         key="1"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
@@ -14,7 +14,7 @@ const NavLinks = () => {
         Create a Band
       </NavLink>
       <NavLink
-        to="dashboard/see-bands"
+        to="/dashboard/see-bands"
         key="2"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
@@ -24,7 +24,7 @@ const NavLinks = () => {
         See Bands
       </NavLink>
       <NavLink
-        to="dashboard/profile"
+        to="/dashboard/profile"
         key="3"
         className={({ isActive }) =>
           isActive ? "nav-link active" : "nav-link"
