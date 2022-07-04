@@ -3,17 +3,25 @@ import FormRowSelect from "../../components/FormRowSelect";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import {
+  handleChange,
+  clearValues,
+  createBand,
+} from "../../features/band/bandSlice";
+import MusicianContainer from "../../components/MusicianContainer";
+
 const CreateBand = () => {
   const {
     isLoading,
     isEditing,
     name,
     members,
-    genreDefault,
     genre,
+    genreOptions,
     subGenre,
     editBandId,
   } = useSelector((store) => store.band);
+
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,10 +29,13 @@ const CreateBand = () => {
       toast.error("Please provide name and genre");
       return;
     }
+    dispatch(createBand({ name, members, genre, subGenre }));
+    toast.success("band created");
   };
   const handleBandInput = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    dispatch(handleChange({ name, value }));
   };
   return (
     <Wrapper>
@@ -46,15 +57,16 @@ const CreateBand = () => {
           />
           <FormRowSelect
             name="genre"
-            value={genreDefault}
+            value={genre}
             handleChange={handleBandInput}
-            list={genre}
+            list={genreOptions}
           />
+
           <div className="btn-container">
             <button
               type="button"
               className="btn btn-block clear-btn"
-              onClick={() => console.log("clear value")}
+              onClick={() => dispatch(clearValues())}
             >
               clear
             </button>
@@ -68,6 +80,7 @@ const CreateBand = () => {
             </button>
           </div>
         </div>
+        <MusicianContainer />
       </form>
     </Wrapper>
   );

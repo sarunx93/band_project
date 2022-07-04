@@ -6,13 +6,14 @@ import NotFoundError from "../errors/not-found.js";
 
 const createBand = async (req, res) => {
   const { name, genre, members, subGenre } = req.body;
-  console.log(req.user);
+
   if (!members || members.length < 1) {
     throw new BadRequestError("No members provided");
   }
   let bandMembers = [];
+  console.log(members);
   for (const mem of members) {
-    const dbMember = await Musician.findOne({ _id: mem.musicianId });
+    const dbMember = await Musician.findOne({ _id: mem._id });
     if (!dbMember) {
       throw new NotFoundError(`No musician with the id: ${mem.musicianId}`);
     }

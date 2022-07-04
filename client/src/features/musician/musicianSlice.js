@@ -13,7 +13,7 @@ export const getAllMusicians = createAsyncThunk(
       const resp = await customFetch.get(
         "/musicians?position=all&location=all"
       );
-      console.log(resp);
+
       return resp.data;
     } catch (error) {
       console.log(error);

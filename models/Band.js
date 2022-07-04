@@ -32,7 +32,7 @@ const BandSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide a band name"],
   },
-  members: [MemInBandSchema],
+  members: [],
   genre: {
     type: String,
     enum: [
