@@ -11,7 +11,7 @@ const createBand = async (req, res) => {
     throw new BadRequestError("No members provided");
   }
   let bandMembers = [];
-  console.log(members);
+
   for (const mem of members) {
     const dbMember = await Musician.findOne({ _id: mem._id });
     if (!dbMember) {
@@ -62,10 +62,21 @@ const updateBand = async (req, res) => {
   res.status(StatusCodes.OK).json({ band });
 };
 
+const deleteBand = async (req, res) => {
+  const { id: bandId } = req.params;
+  const band = await Band.findOne({ _id: bandId });
+  if (!band) {
+    throw new NotFoundError(`No musician with id :${bandId}`);
+  }
+  await band.remove();
+  res.status(StatusCodes.OK).json({ msg: "band removed" });
+};
+
 export {
   createBand,
   getAllBands,
   getSingleBand,
   getCurrentUserBand,
   updateBand,
+  deleteBand,
 };

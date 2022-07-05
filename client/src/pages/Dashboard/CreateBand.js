@@ -7,6 +7,7 @@ import {
   handleChange,
   clearValues,
   createBand,
+  editBand,
 } from "../../features/band/bandSlice";
 import MusicianContainer from "../../components/MusicianContainer";
 
@@ -27,6 +28,16 @@ const CreateBand = () => {
     e.preventDefault();
     if (!name || !genre) {
       toast.error("Please provide name and genre");
+      return;
+    }
+    if (isEditing) {
+      dispatch(
+        editBand({
+          bandId: editBandId,
+          band: { name, members, genre, subGenre },
+        })
+      );
+      toast.success("Band Edited");
       return;
     }
     dispatch(createBand({ name, members, genre, subGenre }));

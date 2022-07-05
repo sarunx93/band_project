@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 import { logoutUser } from "../user/userSlice";
-
+import { getAllBands } from "../seeBands/seeBandsSlice";
 const initialState = {
   isLoading: false,
   isEditing: false,
@@ -28,11 +28,7 @@ export const createBand = createAsyncThunk(
   "band/createBand",
   async (band, thunkAPI) => {
     try {
-      const resp = await customFetch.post("/bands", band, {
-        headers: {
-          authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
-        },
-      });
+      const resp = await customFetch.post("/bands", band);
       thunkAPI.dispatch(clearValues());
       return resp.data;
     } catch (error) {
@@ -44,18 +40,34 @@ export const createBand = createAsyncThunk(
     }
   }
 );
-export const getAllBands = createAsyncThunk(
-  "bands/getAllbands",
-  async (_, thunkAPI) => {
-    try {
-      const resp = await customFetch.get("/bands");
 
-      return resp.data;
+export const deleteBand = createAsyncThunk(
+  "band/deleteBand",
+  async (bandId, thunkAPI) => {
+    try {
+      const resp = await customFetch.delete(`bands/${bandId}`);
+      thunkAPI.dispatch(getAllBands());
+      toast.success(resp.data.msg);
+      return resp.data.msg;
     } catch (error) {
-      console.log(error);
+      return thunkAPI.rejectWithValue(error.response.data.msg);
     }
   }
 );
+
+export const editBand = createAsyncThunk(
+  "band/editBand",
+  async ({ bandId, band }, thunkAPI) => {
+    try {
+      const resp = await customFetch.patch(`/bands/${bandId}`, band);
+      thunkAPI.dispatch(clearValues());
+      return resp.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data.msg);
+    }
+  }
+);
+
 const bandSlice = createSlice({
   name: "band",
   initialState,
@@ -69,6 +81,9 @@ const bandSlice = createSlice({
     clearValues: () => {
       return initialState;
     },
+    setEditBand: (state, { payload }) => {
+      return { ...state, isEditing: true, ...payload };
+    },
     extraReducers: {
       [createBand.pending]: (state) => {
         state.isLoading = true;
@@ -77,12 +92,30 @@ const bandSlice = createSlice({
         state.isLoading = false;
         toast.success("Band Created");
       },
-      [createBand.pending]: (state, { payload }) => {
+      [createBand.rejected]: (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      },
+      [deleteBand.fulfilled]: (state, { payload }) => {
+        toast.success(payload);
+      },
+      [deleteBand.rejected]: (state, { payload }) => {
+        toast.error(payload);
+      },
+      [editBand.pending]: (state) => {
+        state.isLoading = true;
+      },
+      [editBand.fulfilled]: (state) => {
+        state.isLoading = false;
+        toast.success("Band edited");
+      },
+      [editBand.rejected]: (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
       },
     },
   },
 });
-export const { handleChange, addMembers, clearValues } = bandSlice.actions;
+export const { handleChange, addMembers, clearValues, setEditBand } =
+  bandSlice.actions;
 export default bandSlice.reducer;

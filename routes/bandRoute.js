@@ -5,6 +5,7 @@ import {
   getSingleBand,
   getCurrentUserBand,
   updateBand,
+  deleteBand,
 } from "../controllers/bandController.js";
 import authenticateUser from "../middleware/auth.js";
 const router = express.Router();
@@ -14,8 +15,9 @@ router.route("/").post(authenticateUser, createBand).get(getAllBands);
 router.route("/showAllMyBands").get(authenticateUser, getCurrentUserBand);
 
 router
-  .route(":/id")
+  .route("/:id")
   .get(authenticateUser, getSingleBand)
-  .patch(authenticateUser, updateBand);
+  .patch(authenticateUser, updateBand)
+  .delete(authenticateUser, deleteBand);
 
 export default router;
