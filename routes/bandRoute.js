@@ -10,7 +10,10 @@ import {
 import authenticateUser from "../middleware/auth.js";
 const router = express.Router();
 
-router.route("/").post(authenticateUser, createBand).get(getAllBands);
+router
+  .route("/")
+  .post(authenticateUser, createBand)
+  .get(authenticateUser, getAllBands);
 
 router.route("/showAllMyBands").get(authenticateUser, getCurrentUserBand);
 

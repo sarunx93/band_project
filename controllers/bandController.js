@@ -32,12 +32,40 @@ const createBand = async (req, res) => {
 };
 
 const getAllBands = async (req, res) => {
-  const bands = await Band.find({});
-  res.status(StatusCodes.OK).json({ count: bands.length, bands });
+  const { genre, search, sort } = req.query;
+  const queryObject = {
+    createdBy: req.user.userId,
+  };
+  if (genre !== "all") {
+    queryObject.genre = genre;
+  }
+  if (search) {
+    queryObject.name = { $regex: search, $options: "i" };
+  }
+  let results = Band.find(queryObject);
+
+  if (sort === "a-z") {
+    results = results.sort("name");
+  }
+  if (sort === "z-a") {
+    results = results.sort("-name");
+  }
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+
+  const skip = (page - 1) * limit;
+
+  results.skip(skip).limit(limit);
+  const bands = await results;
+  const totalBands = await Band.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalBands / limit);
+  res.status(StatusCodes.OK).json({ totalBands, numOfPages, bands });
 };
 
 const getSingleBand = async (req, res) => {
   const { id: bandId } = req.params;
+
   const band = await Band.findOne({ _id: bandId });
   if (!band) {
     throw new NotFoundError(`Band with the id ${bandId} not found`);

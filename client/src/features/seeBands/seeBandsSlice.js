@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import customFetch from "../../utils/axios";
 const iniitalFilterState = {
   search: "",
-  genre: "Pop",
+  genre: "all",
   genreOptions: [
     "Rock",
     "Pop",
@@ -14,11 +14,14 @@ const iniitalFilterState = {
     "Fusion",
     "Others",
   ],
+  sort: "a-z",
+  sortOptions: ["a-z", "z-a"],
 };
 
 const initialState = {
   isLoading: false,
   bands: [],
+  totalBands: 0,
   numOfPages: 1,
   page: 1,
   ...iniitalFilterState,
@@ -27,7 +30,7 @@ const initialState = {
 export const getAllBands = createAsyncThunk(
   "seeBands/getAllbands",
   async (_, thunkAPI) => {
-    let url = `/bands/showAllMyBands`;
+    let url = `/bands?genre=all`;
     try {
       const resp = await customFetch.get(url);
       console.log(resp.data);
@@ -41,6 +44,18 @@ export const getAllBands = createAsyncThunk(
 const seeBandsSlice = createSlice({
   name: "seeBands",
   initialState,
+  reducers: {
+    handleChange: (state, { payload: { name, value } }) => {
+      //state.page=1
+      state[name] = value;
+    },
+    clearFilters: (state) => {
+      return { ...state, ...iniitalFilterState };
+    },
+    changePage: (state, { payload }) => {
+      state.page = payload;
+    },
+  },
   extraReducers: {
     [getAllBands.pending]: (state) => {
       state.isLoading = true;
@@ -48,6 +63,8 @@ const seeBandsSlice = createSlice({
     [getAllBands.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.bands = payload;
+      state.numOfPages = payload.numOfPages;
+      state.totalBands = payload.totalBands;
     },
     [getAllBands.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -55,5 +72,5 @@ const seeBandsSlice = createSlice({
     },
   },
 });
-
+export const { handleChange, clearFilters, changePage } = seeBandsSlice.actions;
 export default seeBandsSlice.reducer;

@@ -3,14 +3,15 @@ import Band from "./Band";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllBands } from "../features/seeBands/seeBandsSlice";
+import PageBtnContainer from "./PageBtnContainer";
 const BandsContainer = () => {
-  const { bands, isLoading } = useSelector((store) => store.seeBands);
+  const { bands, isLoading, page, totalBands, numOfPages } = useSelector(
+    (store) => store.seeBands
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBands());
   }, []);
-
-  const bandList = bands.bands;
 
   if (isLoading) {
     return (
@@ -28,12 +29,15 @@ const BandsContainer = () => {
   }
   return (
     <Wrapper>
-      <h5>Bands Info</h5>
+      <h5>
+        {totalBands} band{totalBands > 1 && "s"} found
+      </h5>
       <div className="bands">
         {bands.bands.map((band) => {
           return <Band key={band._id} {...band} />;
         })}
       </div>
+      {numOfPages > 1 && <PageBtnContainer />}
     </Wrapper>
   );
 };
