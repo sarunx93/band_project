@@ -4,7 +4,19 @@ import customFetch from "../../utils/axios";
 const initialState = {
   isLoading: false,
   musicians: [],
-  added: false,
+  totalMusicians: 0,
+  numOfpages: 1,
+  page: 1,
+  position: "Guitar",
+  positionOptions: [
+    "Vocals",
+    "Guitar",
+    "Bass",
+    "Drums/Percussion",
+    "Keyboard",
+    "Brass",
+    "Others",
+  ],
 };
 
 export const getAllMusicians = createAsyncThunk(
@@ -12,7 +24,7 @@ export const getAllMusicians = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const resp = await customFetch.get(
-        "/musicians?position=all&location=all"
+        "/musicians?position=all&location=all&page=1"
       );
 
       return resp.data;

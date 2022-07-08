@@ -24,7 +24,7 @@ const deleteMusician = async (req, res) => {
 };
 
 const getAllMusicians = async (req, res) => {
-  const { position, sort, search, location } = req.query;
+  const { position, location } = req.query;
   console.log(position);
   const queryObject = {};
   // add stuff based on condition
@@ -34,11 +34,16 @@ const getAllMusicians = async (req, res) => {
   if (location !== "all") {
     queryObject.location = location;
   }
-
   let results = Musician.find(queryObject);
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+  results.skip(skip).limit(limit);
   const musicians = await results;
+  const totalMusicians = await Musician.countDocuments(queryObject);
+  const numOfpages = Math.ceil(totalMusicians / limit);
 
-  res.status(StatusCodes.OK).json({ count: musicians.length, musicians });
+  res.status(StatusCodes.OK).json({ totalMusicians, numOfpages, musicians });
 };
 
 const updateMusician = async (req, res) => {
