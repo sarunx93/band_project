@@ -6,7 +6,6 @@ const MusicianContainer = () => {
   const { musicians } = useSelector((store) => store.musician);
 
   const dispatch = useDispatch();
-  const idArray = musicians.map((item) => item._id);
 
   useEffect(() => {
     dispatch(getAllMusicians());

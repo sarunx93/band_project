@@ -7,7 +7,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
 import { useState } from "react";
-import { logoutUser } from "../features/user/userSlice";
+import { clearStore } from "../features/user/userSlice";
 import Container from "react-bootstrap/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
@@ -80,7 +80,7 @@ const NavbarComponent = () => {
                     >
                       <button
                         className="dropdown-btn"
-                        onClick={() => dispatch(logoutUser())}
+                        onClick={() => dispatch(clearStore("Logging out"))}
                       >
                         logout
                       </button>

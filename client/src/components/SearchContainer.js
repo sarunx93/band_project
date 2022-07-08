@@ -13,6 +13,7 @@ const SearchContainer = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isLoading) return;
     dispatch(clearFilters());
   };
   return (
@@ -40,7 +41,11 @@ const SearchContainer = () => {
             list={sortOptions}
             handleChange={handleSearch}
           />
-          <button className="btn btn-block btn-danger" disabled={isLoading}>
+          <button
+            className="btn btn-block btn-danger"
+            disabled={isLoading}
+            onClick={handleSubmit}
+          >
             clear filters
           </button>
         </div>

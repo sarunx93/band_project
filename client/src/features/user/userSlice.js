@@ -1,11 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
+import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 import {
   addUserToLocalStorage,
   getUserFromLocalStorage,
   removeUserFromLocalStorage,
 } from "../../utils/localStorage";
+import { clearSeeBandsState } from "../seeBands/seeBandsSlice";
+import { clearValues } from "../band/bandSlice";
 const initialState = {
   isLoading: false,
   user: getUserFromLocalStorage(),
@@ -41,12 +43,21 @@ export const updateUser = createAsyncThunk(
       const resp = await customFetch.patch("/auth/updateUser", user);
       return resp.data;
     } catch (error) {
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
+      return checkForUnauthorizedResponse(error, thunkAPI);
+    }
+  }
+);
 
-        return thunkAPI.rejectWithValue("Unauthorized logging out");
-      }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+export const clearStore = createAsyncThunk(
+  "user/clearStore",
+  async (message, thunkAPI) => {
+    try {
+      thunkAPI.dispatch(logoutUser(message));
+      thunkAPI.dispatch(clearSeeBandsState());
+      thunkAPI.dispatch(clearValues());
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject();
     }
   }
 );
@@ -103,9 +114,12 @@ const userSlice = createSlice({
       addUserToLocalStorage(user);
       toast.success(`User updated`);
     },
-    [updateUser.pending]: (state, { payload }) => {
+    [updateUser.rejected]: (state, { payload }) => {
       state.isLoading = false;
       toast.error(payload);
+    },
+    [clearStore.rejected]: (state, { payload }) => {
+      toast.error("There was an error");
     },
   },
 });

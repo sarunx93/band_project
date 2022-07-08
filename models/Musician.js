@@ -10,7 +10,16 @@ const MusicianSchema = new mongoose.Schema({
   },
   position: {
     type: String,
-    required: [true, "Please provide your position"],
+    default: "Vocals",
+    enum: [
+      "Vocals",
+      "Guitar",
+      "Bass",
+      "Drums/Percussion",
+      "Keyboard",
+      "Brass",
+      "Others",
+    ],
   },
   location: {
     type: String,

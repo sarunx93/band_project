@@ -4,6 +4,7 @@ import customFetch from "../../utils/axios";
 const initialState = {
   isLoading: false,
   musicians: [],
+  added: false,
 };
 
 export const getAllMusicians = createAsyncThunk(
@@ -24,6 +25,7 @@ export const getAllMusicians = createAsyncThunk(
 const musicianSlice = createSlice({
   name: "musician",
   initialState,
+
   extraReducers: {
     [getAllMusicians.pending]: (state) => {
       state.isLoading = true;
@@ -40,5 +42,5 @@ const musicianSlice = createSlice({
     },
   },
 });
-
+export const { checkAdded } = musicianSlice.actions;
 export default musicianSlice.reducer;

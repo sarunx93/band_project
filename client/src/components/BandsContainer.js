@@ -5,13 +5,20 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllBands } from "../features/seeBands/seeBandsSlice";
 import PageBtnContainer from "./PageBtnContainer";
 const BandsContainer = () => {
-  const { bands, isLoading, page, totalBands, numOfPages } = useSelector(
-    (store) => store.seeBands
-  );
+  const {
+    bands,
+    isLoading,
+    page,
+    totalBands,
+    numOfPages,
+    search,
+    genre,
+    sort,
+  } = useSelector((store) => store.seeBands);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBands());
-  }, []);
+  }, [page, search, genre, sort]);
 
   if (isLoading) {
     return (

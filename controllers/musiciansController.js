@@ -4,7 +4,7 @@ import NotFoundError from "../errors/not-found.js";
 import BadRequestError from "../errors/bad-request.js";
 const createMusician = async (req, res) => {
   const { name, lastName, position, location } = req.body;
-  console.log(req.user);
+
   const musician = await Musician.create({
     name,
     lastName,

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
+import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 import { logoutUser } from "../user/userSlice";
 import { getAllBands } from "../seeBands/seeBandsSlice";
@@ -9,7 +9,7 @@ const initialState = {
   isEditing: false,
   name: "",
   members: [],
-
+  added: false,
   genre: "Pop",
   genreOptions: [
     "Rock",
@@ -34,7 +34,7 @@ export const createBand = createAsyncThunk(
     } catch (error) {
       if (error.response.status === 401) {
         thunkAPI.dispatch(logoutUser());
-        return thunkAPI.rejectWithValue("Unauthorized! logging out");
+        return checkForUnauthorizedResponse(error, thunkAPI);
       }
       return thunkAPI.rejectWithValue(error.response.data.msg);
     }
@@ -50,7 +50,7 @@ export const deleteBand = createAsyncThunk(
       toast.success(resp.data.msg);
       return resp.data.msg;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+      return checkForUnauthorizedResponse(error, thunkAPI);
     }
   }
 );
@@ -63,7 +63,7 @@ export const editBand = createAsyncThunk(
       thunkAPI.dispatch(clearValues());
       return resp.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+      return checkForUnauthorizedResponse(error, thunkAPI);
     }
   }
 );

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
-import customFetch from "../../utils/axios";
+import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
 const iniitalFilterState = {
   search: "",
   genre: "all",
@@ -30,13 +30,18 @@ const initialState = {
 export const getAllBands = createAsyncThunk(
   "seeBands/getAllbands",
   async (_, thunkAPI) => {
-    let url = `/bands?genre=all`;
+    const { page, search, genre, sort } = thunkAPI.getState().seeBands;
+
+    let url = `/bands?genre=${genre}&sort=${sort}&page=${page}`;
+    if (search) {
+      url = url + `&search=${search}`;
+    }
     try {
       const resp = await customFetch.get(url);
-      console.log(resp.data);
+
       return resp.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue("Something went wrong");
+      return checkForUnauthorizedResponse(error, thunkAPI);
     }
   }
 );
@@ -46,7 +51,7 @@ const seeBandsSlice = createSlice({
   initialState,
   reducers: {
     handleChange: (state, { payload: { name, value } }) => {
-      //state.page=1
+      state.page = 1;
       state[name] = value;
     },
     clearFilters: (state) => {
@@ -55,6 +60,7 @@ const seeBandsSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
+    clearSeeBandsState: (state) => initialState,
   },
   extraReducers: {
     [getAllBands.pending]: (state) => {
@@ -72,5 +78,6 @@ const seeBandsSlice = createSlice({
     },
   },
 });
-export const { handleChange, clearFilters, changePage } = seeBandsSlice.actions;
+export const { handleChange, clearFilters, changePage, clearSeeBandsState } =
+  seeBandsSlice.actions;
 export default seeBandsSlice.reducer;
