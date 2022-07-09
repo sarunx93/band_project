@@ -10,7 +10,7 @@ const CardMusician = ({ fullName, position, location }) => {
       <div className={`colour-${position}`}></div>
       <div className="info">
         <h5>{fullName}</h5>
-        <p>{position + "/Percussion"}</p>
+        <p>{isDrumPercussion ? "Drums/Percussions" : position}</p>
         <p>{location}</p>
       </div>
     </Wrapper>
@@ -24,7 +24,8 @@ const Wrapper = styled.article`
   border: 2px solid black;
   position: relative;
   width: 17rem;
-
+  box-shadow: var(--shadow-2);
+  background: white;
   .icon {
     background: blue;
   }

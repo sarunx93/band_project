@@ -19,15 +19,23 @@ const AllMusicians = () => {
   }, [page, position, location]);
 
   return (
-    <div>
-      <h1>See your bandmates here</h1>
-      {finalPositionOptions.map((pos, index) => {
-        return (
-          <button type="button" key={index} onClick={handleChange}>
-            {pos}
-          </button>
-        );
-      })}
+    <Wrapper>
+      <h1 className="title-text">See your bandmates here</h1>
+      <BtnContainer>
+        {finalPositionOptions.map((pos, index) => {
+          return (
+            <button
+              type="button"
+              key={index}
+              onClick={handleChange}
+              className="btn filter-btn"
+            >
+              {pos}
+            </button>
+          );
+        })}
+      </BtnContainer>
+
       <MusicianContainer>
         {musicians.map((item, index) => {
           return (
@@ -42,14 +50,35 @@ const AllMusicians = () => {
       </MusicianContainer>
 
       {numOfPages > 1 && <PageBtnContainerMus />}
-    </div>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.section`
+  background: url("https://as2.ftcdn.net/v2/jpg/01/48/33/65/1000_F_148336519_QTPr8wfub4YNRZTAyAXsX9USGIjVxJWD.jpg");
+  .title-text {
+    text-align: center;
+
+    margin-bottom: 2rem;
+  }
+`;
+
 const MusicianContainer = styled.div`
-  margin-top: 2rem;
+  margin: 3rem auto;
   display: grid;
   place-items: center;
+  width: var(--max-width);
   grid-template-columns: repeat(3, 1fr);
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  .filter-btn {
+    margin-right: 0.5rem;
+  }
+  .filter-btn:hover {
+    color: white;
+  }
 `;
 export default AllMusicians;
