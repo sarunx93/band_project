@@ -23,7 +23,7 @@ const NavbarComponent = () => {
   const [showLogout, setShowLogout] = useState(false);
   return (
     <Wrapper>
-      <Navbar bg="light" expand="sm" className="d-flex p-3 mb-3">
+      <Navbar bg="light" expand="sm" className="d-flex p-3 ">
         <Container fluid>
           <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
 
@@ -66,7 +66,7 @@ const NavbarComponent = () => {
                   <>
                     <button
                       type="button"
-                      className="btn"
+                      className="btn user-btn"
                       onClick={() => setShowLogout(!showLogout)}
                     >
                       <FaUserCircle />
@@ -100,7 +100,9 @@ const NavbarComponent = () => {
   );
 };
 const Wrapper = styled.nav`
+  padding: 0;
   .link {
+    font-family: var(--headingFont);
     font-size: 2rem;
     margin-right: 3rem;
   }
@@ -135,6 +137,9 @@ const Wrapper = styled.nav`
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
+  }
+  .user-btn:hover {
+    color: white;
   }
 `;
 export default NavbarComponent;

@@ -57,7 +57,7 @@ const Wrapper = styled.article`
     position: absolute;
     width: 13px;
     height: 100%;
-    background: black;
+    background: #11ad5f;
   }
   .colour-Keyboard {
     position: absolute;

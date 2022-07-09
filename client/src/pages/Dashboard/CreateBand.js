@@ -92,9 +92,9 @@ const CreateBand = () => {
               </button>
             </div>
           </div>
-          <MusicianContainer />
         </form>
       </Wrapper>
+      <MusicianContainer />
     </>
   );
 };
