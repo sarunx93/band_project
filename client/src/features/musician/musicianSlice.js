@@ -5,9 +5,10 @@ const initialState = {
   isLoading: false,
   musicians: [],
   totalMusicians: 0,
-  numOfpages: 1,
+  numOfPages: 1,
   page: 1,
-  position: "Guitar",
+  position: "all",
+  location: "all",
   positionOptions: [
     "Vocals",
     "Guitar",
@@ -22,9 +23,10 @@ const initialState = {
 export const getAllMusicians = createAsyncThunk(
   "musician/getAllMusicians",
   async (_, thunkAPI) => {
+    const { page, position, location } = thunkAPI.getState().musician;
     try {
       const resp = await customFetch.get(
-        "/musicians?position=all&location=all&page=1"
+        `/musicians?position=${position}&location=${location}&page=${page}`
       );
 
       return resp.data;
@@ -37,16 +39,26 @@ export const getAllMusicians = createAsyncThunk(
 const musicianSlice = createSlice({
   name: "musician",
   initialState,
-
+  reducers: {
+    changePage: (state, { payload }) => {
+      state.page = payload;
+    },
+    setFilterValue: (state, { payload: { name, value } }) => {
+      state.page = 1;
+      state[name] = value;
+    },
+  },
   extraReducers: {
     [getAllMusicians.pending]: (state) => {
       state.isLoading = true;
     },
     [getAllMusicians.fulfilled]: (state, { payload }) => {
-      const { musicians } = payload;
+      const { musicians, numOfPages, totalMusicians } = payload;
 
       state.isLoading = false;
       state.musicians = musicians;
+      state.numOfPages = numOfPages;
+      state.totalMusicians = totalMusicians;
     },
     [getAllMusicians.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -54,5 +66,5 @@ const musicianSlice = createSlice({
     },
   },
 });
-export const { checkAdded } = musicianSlice.actions;
+export const { changePage, setFilterValue } = musicianSlice.actions;
 export default musicianSlice.reducer;

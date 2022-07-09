@@ -41,9 +41,9 @@ const getAllMusicians = async (req, res) => {
   results.skip(skip).limit(limit);
   const musicians = await results;
   const totalMusicians = await Musician.countDocuments(queryObject);
-  const numOfpages = Math.ceil(totalMusicians / limit);
+  const numOfPages = Math.ceil(totalMusicians / limit);
 
-  res.status(StatusCodes.OK).json({ totalMusicians, numOfpages, musicians });
+  res.status(StatusCodes.OK).json({ totalMusicians, numOfPages, musicians });
 };
 
 const updateMusician = async (req, res) => {

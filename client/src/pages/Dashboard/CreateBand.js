@@ -49,51 +49,53 @@ const CreateBand = () => {
     dispatch(handleChange({ name, value }));
   };
   return (
-    <Wrapper>
-      <form className="form">
-        <h3>{isEditing ? "edit band" : "create band"}</h3>
-        <div className="form-center">
-          <FormRow
-            type="text"
-            name="name"
-            value={name}
-            handleChange={handleBandInput}
-          />
+    <>
+      <Wrapper>
+        <form className="form">
+          <h3>{isEditing ? "edit band" : "create band"}</h3>
+          <div className="form-center">
+            <FormRow
+              type="text"
+              name="name"
+              value={name}
+              handleChange={handleBandInput}
+            />
 
-          <FormRow
-            type="text"
-            name="subGenre"
-            value={subGenre}
-            handleChange={handleBandInput}
-          />
-          <FormRowSelect
-            name="genre"
-            value={genre}
-            handleChange={handleBandInput}
-            list={genreOptions}
-          />
+            <FormRow
+              type="text"
+              name="subGenre"
+              value={subGenre}
+              handleChange={handleBandInput}
+            />
+            <FormRowSelect
+              name="genre"
+              value={genre}
+              handleChange={handleBandInput}
+              list={genreOptions}
+            />
 
-          <div className="btn-container">
-            <button
-              type="button"
-              className="btn btn-block clear-btn"
-              onClick={() => dispatch(clearValues())}
-            >
-              clear
-            </button>
-            <button
-              type="button"
-              className="btn btn-block submit-btn"
-              onClick={handleSubmit}
-              disabled={isLoading}
-            >
-              submit
-            </button>
+            <div className="btn-container">
+              <button
+                type="button"
+                className="btn btn-block clear-btn"
+                onClick={() => dispatch(clearValues())}
+              >
+                clear
+              </button>
+              <button
+                type="button"
+                className="btn btn-block submit-btn"
+                onClick={handleSubmit}
+                disabled={isLoading}
+              >
+                submit
+              </button>
+            </div>
           </div>
-        </div>
-        <MusicianContainer />
-      </form>
-    </Wrapper>
+          <MusicianContainer />
+        </form>
+      </Wrapper>
+    </>
   );
 };
 const Wrapper = styled.section`
