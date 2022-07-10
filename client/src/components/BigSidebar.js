@@ -6,9 +6,6 @@ const BigSidebar = () => {
     <Wrapper>
       <div className="sidebar-container">
         <div className="content">
-          <header>
-            <Logo />
-          </header>
           <NavLinks />
         </div>
       </div>

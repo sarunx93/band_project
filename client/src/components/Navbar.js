@@ -23,18 +23,18 @@ const NavbarComponent = () => {
   const [showLogout, setShowLogout] = useState(false);
   return (
     <Wrapper>
-      <Navbar bg="light" expand="sm" className="d-flex p-3 ">
+      <Navbar bg="light" expand="xxl" className="d-flex p-3">
         <Container fluid>
-          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-md" />
+          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-xxl" />
 
           <Navbar.Offcanvas
-            id="offcanvasNavbar-expand-sm"
-            aria-labelledby="offcanvasNavbarLabel-expand-sm"
+            id="offcanvasNavbar-expand-xxl"
+            aria-labelledby="offcanvasNavbarLabel-expand-xxl"
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel-expand-sm">
-                Offcanvas
+              <Offcanvas.Title id="offcanvasNavbarLabel-expand-xxl">
+                Band Picker
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -49,7 +49,10 @@ const NavbarComponent = () => {
                   Dashboard
                 </Nav.Link>
 
-                <NavDropdown title="Dashboard" id="nav-dropdown">
+                <NavDropdown
+                  title="Dashboard"
+                  id="offcanvasNavbarDropdown-expand-sm"
+                >
                   <NavDropdown.Item href="/dashboard/see-bands">
                     see bands
                   </NavDropdown.Item>

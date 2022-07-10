@@ -21,6 +21,7 @@ const Band = ({ _id, name, members, genre, subGenre }) => {
             <h5>{genre}</h5>
             <h6>{subGenre}</h6>
           </div>
+          <h5>{`${members.length} member${members.length > 1 ? "s" : ""}`}</h5>
         </div>
         <footer>
           <div className="actions">

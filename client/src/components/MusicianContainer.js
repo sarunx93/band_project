@@ -5,6 +5,7 @@ import Musician from "./Musician";
 import PageBtnContainerMus from "./PageBtnContainerMus";
 import styled from "styled-components";
 import { setFilterValue } from "../features/musician/musicianSlice";
+import CardMusician from "./CardMusician";
 const MusicianContainer = () => {
   const { musicians, page, positionOptions, position } = useSelector(
     (store) => store.musician
@@ -19,9 +20,9 @@ const MusicianContainer = () => {
   }, [page, position]);
 
   return (
-    <>
+    <Wrapper>
       <div>
-        <h1>See your bandmates here</h1>
+        <h1 className="title-text">See your bandmates here</h1>
         <BtnContainer>
           {finalPositionOptions.map((pos, index) => {
             return (
@@ -39,9 +40,12 @@ const MusicianContainer = () => {
         <Container>
           {musicians.map((item, index) => {
             return (
-              <Musician
+              <CardMusician
                 fullName={item.name + " " + item.lastName}
+                position={item.position}
                 item={item}
+                location={item.location}
+                addedFuntion={true}
                 key={index}
               />
             );
@@ -49,10 +53,16 @@ const MusicianContainer = () => {
         </Container>
       </div>
       <PageBtnContainerMus />
-    </>
+    </Wrapper>
   );
 };
-
+const Wrapper = styled.div`
+  .title-text {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+`;
 const Container = styled.section`
   margin: 3rem auto;
   display: grid;

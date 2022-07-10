@@ -60,7 +60,7 @@ const Wrapper = styled.section`
   flex-wrap: wrap;
   gap: 1rem;
   .btn-container {
-    background: var(--primary-100);
+    background: var(--grey-700);
     border-radius: var(--borderRadius);
   }
   .pageBtn {
@@ -98,7 +98,7 @@ const Wrapper = styled.section`
   }
   .prev-btn:hover,
   .next-btn:hover {
-    background: var(--primary-500);
+    background: var(--grey-700);
     color: var(--white);
   }
 `;

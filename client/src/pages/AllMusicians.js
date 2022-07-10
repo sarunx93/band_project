@@ -44,6 +44,7 @@ const AllMusicians = () => {
               fullName={item.name + " " + item.lastName}
               position={item.position}
               location={item.location}
+              addedFuntion={false}
             />
           );
         })}
@@ -58,6 +59,7 @@ const Wrapper = styled.section`
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("https://as2.ftcdn.net/v2/jpg/01/48/33/65/1000_F_148336519_QTPr8wfub4YNRZTAyAXsX9USGIjVxJWD.jpg")
       center/cover no-repeat;
+
   padding: 2rem;
   height: 1000px;
   .title-text {
@@ -83,7 +85,8 @@ const BtnContainer = styled.div`
     background: white;
   }
   .filter-btn:hover {
-    background: var(--primary-500);
+    background: var(--grey-700);
+    color: white;
   }
 `;
 export default AllMusicians;

@@ -3,6 +3,7 @@ import FormRowSelect from "../../components/FormRowSelect";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import styled from "styled-components";
+import AllMusicians from "../AllMusicians";
 import {
   handleChange,
   clearValues,
@@ -104,6 +105,7 @@ const Wrapper = styled.section`
   background: var(--white);
   padding: 3rem 2rem 4rem;
   box-shadow: var(--shadow-2);
+
   h3 {
     margin-top: 0;
   }
@@ -138,10 +140,11 @@ const Wrapper = styled.section`
     }
   }
   .clear-btn {
-    background: var(--grey-500);
+    background: var(--grey-200);
   }
   .clear-btn:hover {
     background: var(--black);
+    color: white;
   }
   @media (min-width: 992px) {
     .form-center {

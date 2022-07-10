@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-const CardMusician = ({ fullName, position, location }) => {
+import { addMembers } from "../features/band/bandSlice";
+import { useDispatch, useSelector } from "react-redux";
+const CardMusician = ({ fullName, position, location, addedFuntion, item }) => {
+  const [added, setAdded] = useState(false);
+  const dispatch = useDispatch();
   const isDrumPercussion = position === "Drums/Percussion";
+  const addToMembers = (mem) => {
+    setAdded(true);
+    dispatch(addMembers(mem));
+  };
   if (isDrumPercussion) {
     position = "Drums";
   }
@@ -13,6 +21,16 @@ const CardMusician = ({ fullName, position, location }) => {
         <p>{isDrumPercussion ? "Drums/Percussions" : position}</p>
         <p>{location}</p>
       </div>
+      {addedFuntion && (
+        <button
+          type="button"
+          onClick={() => addToMembers(item)}
+          disabled={added}
+          className="add-btn btn"
+        >
+          {added ? "Added" : "Add"}
+        </button>
+      )}
     </Wrapper>
   );
 };
@@ -26,6 +44,17 @@ const Wrapper = styled.article`
   width: 17rem;
   box-shadow: var(--shadow-2);
   background: white;
+  position: relative;
+  .add-btn {
+    position: absolute;
+    right: 1rem;
+    top: 6rem;
+    background: #00f21a;
+  }
+  .add-btn:hover {
+    color: var(--red-dark);
+    background: #13d21a;
+  }
   .icon {
     background: blue;
   }
