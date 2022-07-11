@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Janet Wilson",
+    "img": "https://randomuser.me/api/portraits/women/58.jpg",
+    "reviews": "This application allows me to pursue my childhood dream to have a girls band."
+  },
+  {
+    "name": "Brian Wang",
+    "img": "https://randomuser.me/api/portraits/men/92.jpg",
+    "reviews": "It is hard to find a heavy-metal mates in my neighbourhood, so I decieded to go find online."
+  },
+  {
+    "name": "Dominic Moore",
+    "img": "https://randomuser.me/api/portraits/men/91.jpg",
+    "reviews": "I have had a collab with bunch of mates around the world via Band Picker. You are legend!!"
+  },
+  {
+    "name": "Sandy Somprasert",
+    "img": "https://randomuser.me/api/portraits/women/44.jpg",
+    "reviews": "There is no better place to find bandmates than this one."
+  }
+]

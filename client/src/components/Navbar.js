@@ -23,17 +23,17 @@ const NavbarComponent = () => {
   const [showLogout, setShowLogout] = useState(false);
   return (
     <Wrapper>
-      <Navbar bg="light" expand="xxl" className="d-flex p-3">
+      <Navbar bg="light" expand="lg" className="d-flex p-3">
         <Container fluid>
-          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-xxl" />
+          <Navbar.Toggle aria-controls="offcanvasNavbar-expand-lg" />
 
           <Navbar.Offcanvas
-            id="offcanvasNavbar-expand-xxl"
-            aria-labelledby="offcanvasNavbarLabel-expand-xxl"
+            id="offcanvasNavbar-expand-sm"
+            aria-labelledby="offcanvasNavbarLabel-expand-sm"
             placement="end"
           >
             <Offcanvas.Header closeButton>
-              <Offcanvas.Title id="offcanvasNavbarLabel-expand-xxl">
+              <Offcanvas.Title id="offcanvasNavbarLabel-expand-sm">
                 Band Picker
               </Offcanvas.Title>
             </Offcanvas.Header>

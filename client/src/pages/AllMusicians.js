@@ -21,7 +21,7 @@ const AllMusicians = () => {
   return (
     <Wrapper>
       <h1 className="title-text">See your bandmates here</h1>
-      <BtnContainer>
+      <div className="btn-container">
         {finalPositionOptions.map((pos, index) => {
           return (
             <button
@@ -34,9 +34,9 @@ const AllMusicians = () => {
             </button>
           );
         })}
-      </BtnContainer>
+      </div>
 
-      <MusicianContainer>
+      <div className="musician-container">
         {musicians.map((item, index) => {
           return (
             <CardMusician
@@ -48,7 +48,7 @@ const AllMusicians = () => {
             />
           );
         })}
-      </MusicianContainer>
+      </div>
 
       {numOfPages > 1 && <PageBtnContainerMus />}
     </Wrapper>
@@ -59,27 +59,25 @@ const Wrapper = styled.section`
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("https://as2.ftcdn.net/v2/jpg/01/48/33/65/1000_F_148336519_QTPr8wfub4YNRZTAyAXsX9USGIjVxJWD.jpg")
       center/cover no-repeat;
-
+  height: 100vh;
   padding: 2rem;
-  height: 1000px;
+
   .title-text {
     text-align: center;
     color: white;
   }
-`;
+  .musician-container {
+    margin: 3rem auto;
+    display: grid;
+    place-items: center;
+    width: var(--max-width);
+    grid-template-columns: repeat(3, 1fr);
+  }
 
-const MusicianContainer = styled.div`
-  margin: 3rem auto;
-  display: grid;
-  place-items: center;
-  width: var(--max-width);
-  grid-template-columns: repeat(3, 1fr);
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  justify-content: center;
-
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
   .filter-btn {
     margin-right: 0.5rem;
     background: white;
@@ -88,5 +86,20 @@ const BtnContainer = styled.div`
     background: var(--grey-700);
     color: white;
   }
+
+  @media (max-width: 992px) {
+    height: 100%;
+    .btn-container {
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      margin-bottom: 1rem;
+    }
+    .musician-container {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+  }
 `;
+
 export default AllMusicians;

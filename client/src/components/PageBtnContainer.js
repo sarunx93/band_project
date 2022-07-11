@@ -101,5 +101,10 @@ const Wrapper = styled.section`
     background: var(--primary-500);
     color: var(--white);
   }
+  @media (max-width: 992px) {
+    .btn-container {
+      display: none;
+    }
+  }
 `;
 export default PageBtnContainer;

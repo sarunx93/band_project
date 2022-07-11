@@ -69,12 +69,21 @@ const Container = styled.section`
   place-items: center;
   width: var(--max-width);
   grid-template-columns: repeat(3, 1fr);
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
 `;
 
 const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
-
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+    .filter-btn {
+      margin-bottom: 0.5rem;
+    }
+  }
   .filter-btn {
     margin-right: 0.5rem;
     background: white;

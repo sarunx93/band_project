@@ -3,13 +3,15 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { GrGroup } from "react-icons/gr";
 import { FaGuitar, FaMoneyBillAlt } from "react-icons/fa";
+import Reviews from "../components/Reviews";
+import Footer from "../components/Footer";
 const Home = () => {
   return (
     <Wrapper>
       <div className="hero">
         <div className="text-container">
           <h1 className="hero-text">Your</h1>
-          <h1 className="hero-text">Music Journey</h1>
+          <h1 className="hero-text music-journey">Music Journey</h1>
           <h1 className="hero-text">Starts</h1>
           <Link to="/dashboard/create-band" className="link">
             <h1 className="now-text">Now</h1>
@@ -34,6 +36,8 @@ const Home = () => {
           <h3>completely free</h3>
         </div>
       </section>
+      <Reviews />
+      <Footer />
     </Wrapper>
   );
 };
@@ -92,7 +96,14 @@ const Wrapper = styled.div`
     display: grid;
     place-items: center;
     grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 992px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
   }
+
   .quality {
     text-align: center;
     height: 300px;
@@ -101,10 +112,18 @@ const Wrapper = styled.div`
     padding: 2rem;
     transition: var(--transition);
     border-radius: 7.5%;
+    @media (max-width: 992px) {
+      margin-bottom: 1rem;
+    }
   }
   .quality:hover {
     box-shadow: var(--shadow-4);
     transform: scale(1.05);
+  }
+  @media (max-width: 992px) {
+    .music-journey {
+      font-size: 4rem;
+    }
   }
 `;
 export default Home;
