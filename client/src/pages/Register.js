@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../components/Logo";
+
 import FormRow from "../components/FormRow";
 import { toast } from "react-toastify";
 import styled from "styled-components";
@@ -51,7 +51,6 @@ const Register = () => {
   return (
     <Wrapper>
       <form className="form" onSubmit={onSubmit}>
-        <Logo />
         <h3>{values.isMember ? "Login" : "Register"}</h3>
         {/* name input */}
         {!values.isMember && (

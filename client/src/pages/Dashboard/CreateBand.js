@@ -27,10 +27,11 @@ const CreateBand = () => {
   const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !genre) {
-      toast.error("Please provide name and genre");
+    if (!name || !genre || members.length === 0) {
+      toast.error("Please provide all values");
       return;
     }
+
     if (isEditing) {
       dispatch(
         editBand({
@@ -41,8 +42,8 @@ const CreateBand = () => {
       toast.success("Band Edited");
       return;
     }
+    toast.success("Band Created");
     dispatch(createBand({ name, members, genre, subGenre }));
-    toast.success("band created");
   };
   const handleBandInput = (e) => {
     const name = e.target.name;

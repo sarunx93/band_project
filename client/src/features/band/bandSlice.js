@@ -30,13 +30,9 @@ export const createBand = createAsyncThunk(
     try {
       const resp = await customFetch.post("/bands", band);
       thunkAPI.dispatch(clearValues());
-      return resp.data;
+      return resp.data.msg;
     } catch (error) {
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
-        return checkForUnauthorizedResponse(error, thunkAPI);
-      }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
+      return checkForUnauthorizedResponse(error, thunkAPI);
     }
   }
 );
@@ -111,6 +107,7 @@ const bandSlice = createSlice({
       },
       [editBand.rejected]: (state, { payload }) => {
         state.isLoading = false;
+
         toast.error(payload);
       },
     },

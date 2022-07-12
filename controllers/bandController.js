@@ -10,6 +10,7 @@ const createBand = async (req, res) => {
   if (!members || members.length < 1) {
     throw new BadRequestError("No members provided");
   }
+
   let bandMembers = [];
 
   for (const mem of members) {
