@@ -5,11 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-client": "cd client && npm run build",
     "server": "nodemon server --ignore client",
     "client": "npm start --prefix client",
-    "start": "concurrently --kill-others-on-fail \" npm run server\" \" npm run client\"",
-    "build-client": "cd client && npm run build"
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "install-client": "cd client && npm install",
+    "heroku-postbuild": "npm run install-client && npm run build-client"
   },
   "keywords": [],
   "author": "",
@@ -35,5 +36,8 @@
     "react-redux": "^8.0.2",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"
+  },
+  "engines": {
+    "node": "16.x"
   }
 }
