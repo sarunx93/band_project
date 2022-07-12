@@ -59,7 +59,7 @@ const Wrapper = styled.section`
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
     url("https://as2.ftcdn.net/v2/jpg/01/48/33/65/1000_F_148336519_QTPr8wfub4YNRZTAyAXsX9USGIjVxJWD.jpg")
       center/cover no-repeat;
-  height: 100vh;
+
   padding: 2rem;
 
   .title-text {
