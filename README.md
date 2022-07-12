@@ -21,3 +21,6 @@ npm install
 npm start
 ```
 ## Introducing Pages
+### Home Page
+<img src='https://raw.githubusercontent.com/sarunx93/band_project/main/assets/images/home.png'/>
+A stylish welcome page that will introduce you to the world of music, meeting new musician friends from around the globe.
