@@ -23,4 +23,19 @@ npm start
 ## Introducing Pages
 ### Home Page
 <img src='https://raw.githubusercontent.com/sarunx93/band_project/main/assets/images/home.png'/>
-A stylish welcome page that will introduce you to the world of music, meeting new musician friends from around the globe.
+A stylish welcome page that will introduce you to the world of music, meeting new musician friends from around the globe.</br>
+
+### All Musicians Page
+<img src='https://raw.githubusercontent.com/sarunx93/band_project/main/assets/images/all_musicians.png'/>
+The page that displays data of 100 musicians with colour tabs that categorize them according to the instruments they play. Data can also be filtered by filter buttons at the top of the page. Let's say you want to see only the guitarists, just simply click on the guitar filter button and the data will be displayed. It also comes with pagination. The way it works is that the whole data has been paginated by the server so that the front-end can display data and easily perform pagination function.
+
+### Dashboard
+Dahsboard is where most of the HTTP requests are performed and it is also a protected router where a user needs to login before accessing it. This is where you can create, delete and update your band and also update your profile details. This page consists of 3 nested pages.
+### Profile
+<img src='https://raw.githubusercontent.com/sarunx93/band_project/main/assets/images/profile.png'/>
+This page basically takes your input and sends patch request to the server to update details of an existing user.
+### Create a Band
+<img src='https://raw.githubusercontent.com/sarunx93/band_project/main/assets/images/profile.png'/>
+There two main sections on this page, create-band section and musician section. In the create-band section, you can give your band a cool name, a genre, and optionally, sub-genre. The lower section is where you pick up your bandmates by clickling 'add' button on a musican. Both are mandatory in order to create a band.
+### See Bands
+
