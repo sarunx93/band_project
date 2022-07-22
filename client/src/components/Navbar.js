@@ -6,14 +6,13 @@ import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Nav from "react-bootstrap/Nav";
 import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { clearStore } from "../features/user/userSlice";
 import Container from "react-bootstrap/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React from "react";
 import styled from "styled-components";
-
-import { FaShoppingCart } from "react-icons/fa";
+import decode from "jwt-decode";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,6 +20,17 @@ const NavbarComponent = () => {
   const { user } = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const [showLogout, setShowLogout] = useState(false);
+  useEffect(() => {
+    const token = user?.token;
+
+    //JWT check if token expired
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        dispatch(clearStore("Please log-in or register"));
+      }
+    }
+  }, [user]);
   return (
     <Wrapper>
       <Navbar bg="light" expand="lg" className="d-flex p-3">
